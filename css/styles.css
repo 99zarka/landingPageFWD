@@ -64,16 +64,37 @@ section {
 /* ---- Module Rules ---- */
 
 /* Navigation Styles*/
+
+.navbar__menu {
+    background-color: rgb(39, 51, 61);
+    
+    width: 100%;
+    display: inline-flex;
+    justify-content: flex-end;
+    
+
+}
+
 .navbar__menu ul {
+    display: inline-flex;
     padding-left: 0;
     margin: 0;
-    text-align: right;
+    flex-shrink: 1;
+
 }
 
 .navbar__menu li {
     display: inline-block;
+    color: rgb(182, 188, 194);
+    padding: 10px;
+    background-color: rgb(28, 38, 47);
+    margin-left: 4px;
+    flex-shrink: 0;
+    
+
 }
 
+/*
 .navbar__menu .menu__link {
     display: block;
     padding: 1em;
@@ -81,12 +102,13 @@ section {
     text-decoration: none;
     color: #000;
 }
-
-.navbar__menu .menu__link:hover {
+*/
+.navbar__menu li:hover {
     background: #333;
     color: #fff;
     transition: ease 0.3s all;
 }
+
 
 /* Header Styles */
 .page__header {
