@@ -45,6 +45,11 @@ p {
     color: #eee;
 }
 
+.your-active-class h2{
+    color: rgb(255, 251, 0);
+    transition: ease 0.5s all;
+}
+
 /* ---- Layout Rules ---- */
 main {
     margin: 10vh 1em 10vh;
@@ -90,8 +95,11 @@ section {
     background-color: rgb(28, 38, 47);
     margin-left: 4px;
     flex-shrink: 0;
-    
+}
 
+ .navbar__menu .your-active-nav-menu {
+    background-color: hsla(199, 100%, 50%, 0.685);
+    transition: ease 0.5s all;
 }
 
 /*
