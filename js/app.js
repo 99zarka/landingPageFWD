@@ -105,20 +105,14 @@ window.addEventListener('resize', ShowHideScrollBar);
 
 
 //updating 'your-active-class' while scrolling by calculating if a section is visible on the screen 
-//When the middle of the section is shown in the viewport, the section will be marked as visible.
-//The function does the job, but needs improvment.
+//When the middle line of the screen touches the section, the section will be marked as visible.
 function isVisible(elem) {
-    bound=elem.getBoundingClientRect();
-    if(bound.top>window.innerHeight && bound.bottom>window.innerHeight) //when the element is fully above the viewport
-        return false;
-    if(bound.top<0 && bound.bottom<0) //when the element is fully below the viewport
-        return false;
-    
-    let mean=(bound.top+bound.bottom)/2;
-    if(mean>window.innerHeight || mean<0) //when the centre (middle base) of the element is not visible
-        return false; 
-
-    return true;
+    let middleLineOfScreen=window.scrollY+window.innerHeight/2;
+    let elemBottom=elem.offsetTop+elem.offsetHeight;
+    if(elem.offsetTop<middleLineOfScreen && middleLineOfScreen<elemBottom )
+        return true;
+        
+    return false;
   }
 
 navigationBar.firstChild.classList.add('your-active-nav-menu'); //initial value
