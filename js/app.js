@@ -161,3 +161,18 @@ window.addEventListener('scroll', function() {
             changeActiveClass(elem);
     })
 })
+
+//Back to top button
+
+let buttonToTop=document.querySelector('#buttonToTop')
+buttonToTop.addEventListener('click',function(){
+    document.querySelector('html').scrollIntoView({behavior: "smooth"})
+})
+
+//showing the "Back to top" button when reaching the last section, otherwise it's going to be hidden
+window.addEventListener('scroll', function() {
+    if(isVisible(allSections[i-1]))
+        buttonToTop.style.display='inline';
+    else
+        buttonToTop.style.display='none'
+})
