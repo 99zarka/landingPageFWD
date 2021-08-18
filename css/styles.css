@@ -102,22 +102,11 @@ section {
     transition: ease 0.5s all;
 }
 
-
-/*
-.navbar__menu .menu__link {
-    display: block;
-    padding: 1em;
-    font-weight: bold;
-    text-decoration: none;
-    color: #000;
-}
-*/
 .navbar__menu li:hover {
     background: #333;
     color: #fff;
     transition: ease 0.3s all;
 }
-
 
 /* Header Styles */
 .page__header {
@@ -141,6 +130,29 @@ section {
     color: #fff;
 }
 
+.add__section{
+    align-self:center;
+    width:70%;
+}
+
+#newTitle{
+    font-size:1em;
+    width:100%;
+}
+.titleBox{
+    font-size:1.5em;
+    width:100%;
+    display:flex;
+}
+#newText{
+    font-size:1.5em;
+    resize: vertical;
+    width:100%;
+    max-height:20em;
+    min-height:10em;
+    line-height: 1.6em;
+}
+
 button{
     font-size: 2em;
     width: 70%;
@@ -157,9 +169,9 @@ button:hover{
     font-size: auto;
     position: fixed;
     width: 2em;
-	height:2em;
-	bottom:1em;
-	right:1em;
+    height:2em;
+    bottom:1em;
+    right:1em;
     align-self: flex-end;
     border-radius:50px;
     opacity: 0.6;
@@ -171,9 +183,6 @@ button:hover{
     opacity: 1.0;
     transition: ease 1s all;
 }
-
-
-
 
 /* ---- Theme Rules ---- */
 /* Landing Container Styles */
@@ -254,7 +263,6 @@ section:nth-of-type(3n + 1) .landing__container::after {
     opacity: 0;
     transition: ease 0.5s all;
 }
-
 
 /* ---- Theme State Rules ---- */
 /* Section Active Styles */

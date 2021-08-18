@@ -74,8 +74,7 @@ let initializeNavItem= function(section,index){
 
 }
 
-let i=0;
-for(i=0;i<allSections.length;i++){
+for(let i=0;i<allSections.length;i++){
     fragment.appendChild(initializeNavItem(allSections[i],i));
 }
 navigationBar.appendChild(fragment);
@@ -104,27 +103,10 @@ window.addEventListener('load', ShowHideScrollBar);
 window.addEventListener('resize', ShowHideScrollBar);
 
 
-//a button for adding a dummy section to make it easier to test the web page
-let dummySection=(allSections)=>  `<section id="section${allSections.length+1}" data-nav="Section ${allSections.length+1}">
-<div class="landing__container">
-  <h2>Section ${allSections.length+1}</h2>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie semper in tellus. Sed congue et odio sed euismod.</p>
-
-  <p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>
-</div>
-</section>`;
-
-let button1=document.getElementById('button1');
-button1.addEventListener('click',function(){
-    allSections[allSections.length-1].insertAdjacentHTML('afterend',dummySection(allSections));
-    navigationBar.appendChild(initializeNavItem(allSections[i],i++));
-    ShowHideScrollBar();
-    navigationBar.lastElementChild.scrollIntoView({behavior: "smooth"});
-    button1.scrollIntoView({behavior: "smooth"});
-
-})
 
 //updating 'your-active-class' while scrolling by calculating if a section is visible on the screen 
+//When the middle of the section is shown in the viewport, the section will be marked as visible.
+//The function does the job, but needs improvment.
 function isVisible(elem) {
     bound=elem.getBoundingClientRect();
     if(bound.top>window.innerHeight && bound.bottom>window.innerHeight) //when the element is fully above the viewport
@@ -164,15 +146,72 @@ window.addEventListener('scroll', function() {
 
 //Back to top button
 
-let buttonToTop=document.querySelector('#buttonToTop')
+let buttonToTop=document.querySelector('#buttonToTop');
 buttonToTop.addEventListener('click',function(){
-    document.querySelector('html').scrollIntoView({behavior: "smooth"})
+    document.querySelector('html').scrollIntoView({behavior: "smooth"});
 })
 
 //showing the "Back to top" button when reaching the last section, otherwise it's going to be hidden
 window.addEventListener('scroll', function() {
-    if(isVisible(allSections[i-1]))
+    if(allSections[allSections.length-1].className=='your-active-class' || isVisible(document.querySelector('footer')))
         buttonToTop.style.display='inline';
     else
-        buttonToTop.style.display='none'
+        buttonToTop.style.display='none';
+})
+
+
+
+//a button for adding a dummy section to make it easier to test the web page
+
+let addNewSection=function(htmlText){
+    allSections[allSections.length-1].insertAdjacentHTML('afterend',htmlText);
+    navigationBar.appendChild(initializeNavItem(allSections[allSections.length-1],allSections.length-1));
+    ShowHideScrollBar();
+    navigationBar.lastElementChild.scrollIntoView({behavior: "smooth"});
+}
+
+let dummySectionHTML=(numOfNewSection)=>
+`<section id="section${numOfNewSection}" data-nav="Section ${numOfNewSection}">
+    <div class="landing__container">
+        <h2>Section ${numOfNewSection}</h2>
+        <div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie semper in tellus. Sed congue et odio sed euismod.</p>
+
+            <p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>
+        </div>
+    </div>
+</section>`;
+
+let button1=document.getElementById('button1');
+button1.addEventListener('click',function(){
+    addNewSection(dummySectionHTML(allSections.length+1));
+    button1.scrollIntoView({behavior: "smooth", block: "end"});
+})
+
+//Feature: adding a new section entered by the user.
+let button2=document.getElementById('button2');
+button2.addEventListener('click',function(){
+    let newTitle=document.getElementById('newTitle').value.trim();
+    let newText=document.getElementById('newText').value.trim();
+    while(newText.search('\n\n')>=0)
+        newText=newText.replaceAll('\n\n','\n'); //to discard empty newlines.
+
+    newText=newText.replaceAll('\n','<p>');
+
+    let htmlText=`<section id="section${allSections.length+1}" data-nav="Section ${allSections.length+1}">
+                    <div class="landing__container">
+                        <h2>${newTitle}</h2>
+                        <div>${newText}</div>
+                    </div>
+                  </section>`;
+
+    if(newTitle&& newText){
+        addNewSection(htmlText);
+        document.getElementById('newTitle').value='';
+        document.getElementById('newText').value='';
+        allSections[allSections.length-1].scrollIntoView({behavior: "smooth", block: "end"});
+    }
+    else{
+        alert('You must fill Title and Text fields.');
+    }
 })
