@@ -40,9 +40,56 @@ h2 {
     color: #fff;
 }
 
+.collapsed{
+    background-color: #333;
+}
+
+section:nth-of-type(odd) h2::after{
+    content: '\2796'; /*symbol of minus icon*/
+    font-size: large;
+    margin: 1em;
+    color: rgb(0, 0, 0);
+    float: right;
+}
+
+section:nth-of-type(even) h2::before{
+    content: '\2796'; /*symbol of minus icon*/
+    font-size: large;
+    margin: 1em;
+    color: rgb(0, 0, 0);
+    float: left;
+}
+
+
+.collapsed:hover{
+    background-color: rgb(34, 34, 34);
+}
+section:nth-of-type(odd) .collapsed::after{
+    content: '\2795'; /*symbol of plus icon*/
+    font-size: large;
+    margin: 1em;
+    color: rgb(0, 0, 0);
+    float: right;
+    
+}
+
+section:nth-of-type(even) .collapsed::before{
+    content: '\2795'; /*symbol of plus icon*/
+    font-size: large;
+    margin: 1em;
+    color: rgb(0, 0, 0);
+    float: left;
+    
+}
+
 p {
     line-height: 1.6em;
     color: #eee;
+}
+
+.paragraphs{
+    overflow: hidden;
+    transition: ease 1.5s all;
 }
 
 .your-active-class h2{
@@ -63,6 +110,8 @@ main {
 section {
     position: relative;
     min-height: 80vh;
+    overflow: hidden;
+    transition: ease 1.5s all;
 }
 
 
@@ -76,7 +125,7 @@ section {
     width: 100%;
     display: inline-flex;
     justify-content: flex-end;
-    
+    transition: ease 1s all;
 
 }
 
@@ -85,6 +134,7 @@ section {
     padding-left: 0;
     margin: 0;
     flex-shrink: 1;
+    transition: ease 0.5s all;
 
 }
 
@@ -131,6 +181,7 @@ section {
 }
 
 .add__section{
+    margin: 2em;
     align-self:center;
     width:70%;
 }
@@ -156,6 +207,7 @@ section {
 button{
     font-size: 2em;
     width: 70%;
+    margin-bottom: 1em;
     align-self: center;
     background: linear-gradient(0deg, rgba(1, 235, 252, 0.507) 0%,rgba(0, 255, 242, 0.829) 100% );
 }

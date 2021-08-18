@@ -168,7 +168,7 @@ let dummySectionHTML=(numOfNewSection)=>
 `<section id="section${numOfNewSection}" data-nav="Section ${numOfNewSection}">
     <div class="landing__container">
         <h2>Section ${numOfNewSection}</h2>
-        <div>
+        <div class='paragraphs'>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie semper in tellus. Sed congue et odio sed euismod.</p>
 
             <p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>
@@ -195,7 +195,7 @@ button2.addEventListener('click',function(){
     let htmlText=`<section id="section${allSections.length+1}" data-nav="Section ${allSections.length+1}">
                     <div class="landing__container">
                         <h2>${newTitle}</h2>
-                        <div>${newText}</div>
+                        <div class='paragraphs'>${newText}</div>
                     </div>
                   </section>`;
 
@@ -203,9 +203,26 @@ button2.addEventListener('click',function(){
         addNewSection(htmlText);
         document.getElementById('newTitle').value='';
         document.getElementById('newText').value='';
-        allSections[allSections.length-1].scrollIntoView({behavior: "smooth", block: "end"});
+        allSections[allSections.length-1].scrollIntoView({behavior: "smooth", block: "start"});
     }
     else{
         alert('You must fill Title and Text fields.');
+    }
+})
+
+//Section collapse feature
+document.addEventListener('click',function(evt){
+    if(evt.target.nodeName === 'H2'){
+        
+        classListArray=Array.from(evt.target.classList);
+        if(!classListArray.includes('collapsed')){
+            evt.target.parentElement.parentElement.style.minHeight='0';
+            evt.target.nextElementSibling.style.maxHeight='0';
+        }
+        else{
+            evt.target.parentElement.parentElement.style.minHeight='80vh';
+            evt.target.nextElementSibling.style.maxHeight='100%';
+        }
+        evt.target.classList.toggle('collapsed');
     }
 })
