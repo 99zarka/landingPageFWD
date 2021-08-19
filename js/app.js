@@ -84,7 +84,7 @@ navigationBar.appendChild(fragment);
 let scrollToSection=function (evt){
     if(evt.target.nodeName === 'LI'){
         let el=document.getElementById(evt.target.getAttribute("data-section-id"));
-        el.scrollIntoView({behavior: "smooth"});
+        window.scrollTo({top: el.offsetTop, behavior: 'smooth'} );
     }
 }
 
@@ -128,7 +128,9 @@ let changeActiveClass=function(elem){
     let newActiveNavItemID=elem.getAttribute('data-navItem-id');
     let newActiveNavItem=document.getElementById(newActiveNavItemID);
     newActiveNavItem.classList.add('your-active-nav-menu');
-    newActiveNavItem.scrollIntoView({behavior: "smooth", inline : "center"});
+    navigationBar.scrollTo({ //centering the active item in the middle of the navigation bar.
+        left: newActiveNavItem.offsetLeft-window.innerWidth*0.5+newActiveNavItem.offsetWidth*0.5+2, //2 is the half of the margin (4px)
+        behavior: 'smooth'});
 }
 
 window.addEventListener('scroll', function() {
@@ -142,7 +144,7 @@ window.addEventListener('scroll', function() {
 
 let buttonToTop=document.querySelector('#buttonToTop');
 buttonToTop.addEventListener('click',function(){
-    document.querySelector('html').scrollIntoView({behavior: "smooth"});
+    window.scrollTo({top: 0, behavior: 'smooth'});
 })
 
 //showing the "Back to top" button when reaching the last section, otherwise it's going to be hidden
@@ -161,7 +163,11 @@ let addNewSection=function(htmlText){
     allSections[allSections.length-1].insertAdjacentHTML('afterend',htmlText);
     navigationBar.appendChild(initializeNavItem(allSections[allSections.length-1],allSections.length-1));
     ShowHideScrollBar();
-    navigationBar.lastElementChild.scrollIntoView({behavior: "smooth"});
+    navigationBar.scrollTo({
+        left: navigationBar.scrollWidth ,
+        behavior: 'smooth'});
+    
+    changeActiveClass(allSections[allSections.length-1])
 }
 
 let dummySectionHTML=(numOfNewSection)=>
@@ -179,7 +185,9 @@ let dummySectionHTML=(numOfNewSection)=>
 let button1=document.getElementById('button1');
 button1.addEventListener('click',function(){
     addNewSection(dummySectionHTML(allSections.length+1));
-    button1.scrollIntoView({behavior: "smooth", block: "end"});
+    window.scrollBy({
+        top: allSections[allSections.length-1].offsetHeight,
+        behavior: 'smooth'});
 })
 
 //Feature: adding a new section entered by the user.
@@ -203,7 +211,9 @@ button2.addEventListener('click',function(){
         addNewSection(htmlText);
         document.getElementById('newTitle').value='';
         document.getElementById('newText').value='';
-        allSections[allSections.length-1].scrollIntoView({behavior: "smooth", block: "start"});
+        window.scrollTo({
+            top: allSections[allSections.length-1].offsetTop,
+            behavior: 'smooth'} );
     }
     else{
         alert('You must fill Title and Text fields.');
