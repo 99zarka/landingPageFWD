@@ -59,6 +59,7 @@
 const fragment = document.createDocumentFragment(); 
 let navigationBar=document.getElementById("navbar__list");
 let allSections=document.getElementsByTagName("section");
+let pageHeader=document.querySelector('.page__header')
 
 let initializeNavItem= function(section,index){
     let navItem = document.createElement('li');
@@ -88,15 +89,19 @@ let scrollToSection=function (evt){
     }
 }
 
-navigationBar.addEventListener('click',scrollToSection);
 
-//Showing a horizontal scroll bar when the screen doesn't fit the navigation bar
+//Showing a horizontal scroll bar (and grabbing cursor) when the screen doesn't fit the navigation bar
 let ShowHideScrollBar=function(){
     let pageWidth=document.querySelector("html").offsetWidth;
-    if(navigationBar.scrollWidth<=pageWidth)
-        navigationBar.style.overflowX="hidden";
-    else 
+    if(navigationBar.scrollWidth<=pageWidth){
+            navigationBar.style.overflowX="hidden";
+            pageHeader.style.cursor='default';
+        }
+    else{
         navigationBar.style.overflowX="scroll";
+        pageHeader.style.cursor='grab';
+    }
+        
 }
 window.addEventListener('load', ShowHideScrollBar);
 //to style the navigation list depending on the size of the screen while initialing the web page
@@ -230,9 +235,69 @@ document.addEventListener('click',function(evt){
             evt.target.nextElementSibling.style.maxHeight='0';
         }
         else{
-            evt.target.parentElement.parentElement.style.minHeight='80vh';
             evt.target.nextElementSibling.style.maxHeight='100%';
+            evt.target.parentElement.parentElement.style.minHeight='80vh';
         }
         evt.target.classList.toggle('collapsed');
     }
 })
+
+//Scroll navigation menu by clicking & dragging it
+
+let oldMousePos=0
+let oldScrollPos=0
+
+function dragScrolling(evt){
+    if(pageHeader.style.cursor=='grab')
+        pageHeader.style.cursor='grabbing';
+    oldScrollPos=navigationBar.scrollLeft;
+    oldMousePos=evt.pageX;
+
+    function moveScrollBar(evt){
+        navigationBar.scrollLeft=oldScrollPos-(evt.pageX-oldMousePos);
+    }
+
+    function abortDragScrolling(evt){
+        ShowHideScrollBar();
+        document.removeEventListener('mousemove',moveScrollBar);
+        document.removeEventListener('mouseup',abortDragScrolling);
+        if(evt.pageX!=oldMousePos) //clicking event will be aborted if the curser moves
+            navigationBar.removeEventListener('click',scrollToSection); //solves the conflict between the dragging and clicking
+        }
+
+    document.addEventListener('mousemove', moveScrollBar);
+    document.addEventListener('mouseup', abortDragScrolling);
+    navigationBar.addEventListener('click',scrollToSection);
+}
+
+navigationBar.addEventListener('mousedown',dragScrolling);
+
+
+//hide navigation bar while not scrolling
+
+/* let timeUp=false;
+x=function(){
+    setTimeout(function(){timeUp=true;console.log("5555")},2000)
+}
+
+let timerDown=2;
+window.addEventListener('scroll',function(){
+    
+    //console.log(window.scrollY)
+    timeUp=false;
+    setTimeout(() => {
+        timeUp=true
+        console.log(1,timeUp)
+    }, 3000);
+    console.log(2,timeUp)
+
+})
+
+window.addEventListener('scroll',function(){
+    console.log(3,timeUp)
+    navigationBar.style.height='auto';
+    if(timeUp)navigationBar.style.height='0';
+
+})
+ */
+
