@@ -72,14 +72,12 @@ let initializeNavItem= function(section,index){
     //saving the id of the section in its corresponding navigation item on the top menu
     //so each item could be paired with its reffered section, and vice versa
     //the nav item and the section are pointing at one another using IDs
-
 }
 
 for(let i=0;i<allSections.length;i++){
     fragment.appendChild(initializeNavItem(allSections[i],i));
 }
 navigationBar.appendChild(fragment);
-
 
 //scrolling functionality
 let scrollToSection=function (evt){
@@ -88,7 +86,6 @@ let scrollToSection=function (evt){
         window.scrollTo({top: el.offsetTop, behavior: 'smooth'} );
     }
 }
-
 
 //Showing a horizontal scroll bar (and grabbing cursor) when the screen doesn't fit the navigation bar
 let ShowHideScrollBar=function(){
@@ -106,8 +103,6 @@ let ShowHideScrollBar=function(){
 window.addEventListener('load', ShowHideScrollBar);
 //to style the navigation list depending on the size of the screen while initialing the web page
 window.addEventListener('resize', ShowHideScrollBar);
-
-
 
 //updating 'your-active-class' while scrolling by calculating if a section is visible on the screen 
 //When the middle line of the screen touches the section, the section will be marked as visible.
@@ -159,8 +154,6 @@ window.addEventListener('scroll', function() {
     else
         buttonToTop.style.display='none';
 })
-
-
 
 //a button for adding a dummy section to make it easier to test the web page
 
@@ -272,32 +265,31 @@ function dragScrolling(evt){
 
 navigationBar.addEventListener('mousedown',dragScrolling);
 
-
 //hide navigation bar while not scrolling
 
-/* let timeUp=false;
-x=function(){
-    setTimeout(function(){timeUp=true;console.log("5555")},2000)
-}
+let timer = 0;
+const timeLimit = 3000 //time in ms
+//const show = new Event('timeUp');
+setInterval(() => {
+    timer+=100;
+    //If The user is still on top of the page, the navigation bar will be shown
+    if(window.scrollY<allSections[0].offsetTop) 
+        timer=0;
 
-let timerDown=2;
+    if(timer>=timeLimit){
+        navigationBar.style.maxHeight='0';
+        timer=timeLimit+100
+    }else
+        navigationBar.style.maxHeight='20vh';
+}, 100);
+
+
 window.addEventListener('scroll',function(){
-    
-    //console.log(window.scrollY)
-    timeUp=false;
-    setTimeout(() => {
-        timeUp=true
-        console.log(1,timeUp)
-    }, 3000);
-    console.log(2,timeUp)
-
+    timer=0;
 })
 
-window.addEventListener('scroll',function(){
-    console.log(3,timeUp)
-    navigationBar.style.height='auto';
-    if(timeUp)navigationBar.style.height='0';
-
+//Show the navigation bar if the curser touches the top 10% of the window
+window.addEventListener('mousemove',function(evt){
+    if(evt.clientY<window.innerHeight/10)
+        timer=0
 })
- */
-
