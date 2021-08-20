@@ -89,7 +89,7 @@ p {
 
 .paragraphs{
     overflow: hidden;
-    transition: ease 1.5s all;
+    transition: ease 1s all;
 }
 
 .your-active-class h2{
@@ -111,7 +111,7 @@ section {
     position: relative;
     min-height: 80vh;
     overflow: hidden;
-    transition: ease 1.5s all;
+    transition: ease 1s all;
 }
 
 
@@ -121,7 +121,6 @@ section {
 
 .navbar__menu {
     background-color: rgb(39, 51, 61);
-    
     width: 100%;
     display: inline-flex;
     justify-content: flex-end;
@@ -134,8 +133,9 @@ section {
     padding-left: 0;
     margin: 0;
     flex-shrink: 1;
-    transition: ease 0.5s all;
-
+    transition: ease 1s all;
+    scrollbar-width: thin;
+    overflow-y: hidden;
 }
 
 .navbar__menu li {
@@ -158,8 +158,32 @@ section {
     transition: ease 0.3s all;
 }
 
+/* Navigation Scroll Bar Styles */
+  /* Thickness */
+  ::-webkit-scrollbar {
+    /*width: 8px;*/
+    height: 8px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+
 /* Header Styles */
 .page__header {
+    cursor: grab;
+    user-select:none;
     background: #fff;
     position: fixed;
     top: 0;
@@ -190,11 +214,13 @@ section {
     font-size:1em;
     width:100%;
 }
+
 .titleBox{
     font-size:1.5em;
     width:100%;
     display:flex;
 }
+
 #newText{
     font-size:1.5em;
     resize: vertical;
@@ -211,6 +237,7 @@ button{
     align-self: center;
     background: linear-gradient(0deg, rgba(1, 235, 252, 0.507) 0%,rgba(0, 255, 242, 0.829) 100% );
 }
+
 button:hover{
     background-color: hsla(199, 100%, 50%, 0.685);
     transition: ease 0.5s all;
@@ -347,3 +374,4 @@ section.your-active-class .landing__container::after {
 		           rotate(-360deg);
 	}
 }
+
