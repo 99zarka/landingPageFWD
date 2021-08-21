@@ -2,6 +2,7 @@
 A project related to the FWD web development scholarship that requires adding more functions to a static web page using JavaScript code.
 
 You can try playing with [my project here](https://99zarka.github.io/landingPageFWD/ "My first web project")
+<br>
 https://99zarka.github.io/landingPageFWD/
 <br>
 <br>
