@@ -271,6 +271,7 @@ window.addEventListener('scroll', function() {
 /* Back to top button */
 buttonToTop.addEventListener('click',function(){
     window.scrollTo({top: 0, behavior: 'smooth'});
+    changeActiveClass(allSections[0])
 })
 window.addEventListener('scroll', showHideBackToTopButton)
 
