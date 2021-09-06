@@ -16,7 +16,7 @@ You can also compare it with the starter code provided by Udacity. You will real
 8. Provided the ability to add more sections.
 9. Make sections collapsible.
 10. Hiding or showing a horizontal scroll bar into the navigation menu according to the size of the screen.
-11. On PC: You can do "Drag-Scrolling" oo the navigation menu. can scroll by holding a click & dragging as if you are using a phone.
+11. On PC: You can do "Drag-Scrolling" on the navigation menu. can scroll by holding a click & dragging as if you are using a phone.
 <br> 
 Here's a diagram that I made while the thinking process about how to hide the navigation menu after certain time of inactivity (not scrolling).
 <br>
