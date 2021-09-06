@@ -2,10 +2,9 @@
 A project related to the FWD web development scholarship that requires adding more functions to a static web page using JavaScript code.
 
 You can try playing with [my project here](https://99zarka.github.io/landingPageFWD/ "My first web project")
-<br>
-https://99zarka.github.io/landingPageFWD/
-<br>
-<br>
+
+You can also compare it with the starter code provided by Udacity. You will realize how JavaScript brings life into web pages. Here is [the landing page before any changes](https://99zarka.github.io/landingPageFWD/StarterCode/ "project before any changes").
+
 ## Features I have added to the static webpage using JavaScript:
 1. Generating the navigation menu.
 2. Functionality to scroll to sections smoothly.
